@@ -4,7 +4,7 @@ import { ChatState } from "../Context/ChatProvider";
 const instance = axios.create({
   baseURL:
     // "https://mern-chat-app-backend-0oq9.onrender.com/" ||
-    process.env.REACT_APP_API_URL,
+    process.env.REACT_APP_API_URL || "http://localhost:3000",
 });
 
 instance.interceptors.request.use(

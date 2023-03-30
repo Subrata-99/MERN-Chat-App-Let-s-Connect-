@@ -21,7 +21,7 @@ import Lottie from "react-lottie";
 import animationData from "../Animations/typing.json";
 
 import io from "socket.io-client";
-const ENDPOINT = FRONTEND_URL || "http://localhost:3000";
+const ENDPOINT = process.env.FRONTEND_URL || "http://localhost:3000";
 let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -116,7 +116,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    console.log("ENDPOINT-------------", ENDPOINT, process.env.FRONTEND_URL);
+    socket = io(process.env.FRONTEND_URL || ENDPOINT);
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
