@@ -5,6 +5,7 @@ import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import { useState } from "react";
 import axios from "axios";
+import API from "../../shared/axios";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
@@ -38,11 +39,13 @@ const Login = () => {
         },
       };
 
-      const { data } = await axios.post(
-        "https://mern-chat-app-backend-0oq9.onrender.com/api/user/login",
-        { email, password },
-        config
-      );
+      // const { data } = await axios.post(
+      //   "https://mern-chat-app-backend-0oq9.onrender.com/api/user/login",
+      //   { email, password },
+      //   config
+      // );
+
+      const { data } = await API.post("api/user/login", { email, password });
       console.log(data);
       toast({
         title: "Login Successful",

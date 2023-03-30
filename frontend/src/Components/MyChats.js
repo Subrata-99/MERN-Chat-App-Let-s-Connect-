@@ -2,6 +2,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Box, Stack, Text, useToast } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import axios from "axios";
+import API from "../shared/axios";
 import React, { useEffect, useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import ChatLoading from "./ChatLoading";
@@ -10,11 +11,13 @@ import GroupChatModal from "./Miscellaneous/GroupChatModal";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
+  const [loading, setLoading] = useState(false);
   const { selectedChat, setSelectedChat, chats, setChats, user } = ChatState();
 
   const toast = useToast();
 
   const fetchChats = async () => {
+    setLoading(true);
     try {
       const config = {
         headers: {
@@ -22,10 +25,13 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get(`/api/chat`, config);
+      // const { data } = await axios.get(`/api/chat`, config);
+      const { data } = await API.get(`/api/chat`);
 
       setChats(data);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       toast({
         title: "Error Occured!",
         description: "Failed to Load the Chats",
@@ -85,7 +91,9 @@ const MyChats = ({ fetchAgain }) => {
         borderRadius="lg"
         overflowY="hidden"
       >
-        {chats ? (
+        {loading ? (
+          <ChatLoading />
+        ) : chats ? (
           <Stack overflowY="scroll">
             {chats?.map((chat) => (
               <Box
@@ -96,7 +104,7 @@ const MyChats = ({ fetchAgain }) => {
                 px={3}
                 py={2}
                 borderRadius="lg"
-                key={chat._id}
+                key={chat?._id}
               >
                 <Text>
                   {!chat?.isGroupChat
@@ -107,7 +115,7 @@ const MyChats = ({ fetchAgain }) => {
             ))}
           </Stack>
         ) : (
-          <ChatLoading />
+          <div>No Chat available</div>
         )}
       </Box>
     </Box>
