@@ -13,7 +13,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
+import API from "../../shared/axios";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../User/UserBadgeItem";
@@ -36,13 +36,7 @@ const GroupChatModal = ({ children }) => {
     try {
       setLoading(true);
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await API.get(`/api/user?search=${search}`);
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -91,20 +85,18 @@ const GroupChatModal = ({ children }) => {
     }
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await axios.post(
-        `/api/chat/group`,
-        {
-          name: groupChatName,
-          users: JSON.stringify(selectedUsers.map((user) => user._id)),
-        },
-        config
-      );
+      // const { data } = await axios.post(
+      //   `/api/chat/group`,
+      //   {
+      //     name: groupChatName,
+      //     users: JSON.stringify(selectedUsers.map((user) => user._id)),
+      //   },
+      //   config
+      // );
+      const { data } = await API.post(`/api/chat/group`, {
+        name: groupChatName,
+        users: JSON.stringify(selectedUsers.map((user) => user._id)),
+      });
       setChats([data, ...chats]);
       onClose();
       toast({

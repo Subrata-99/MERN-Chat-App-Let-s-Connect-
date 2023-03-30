@@ -4,7 +4,6 @@ import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import { useState } from "react";
-import axios from "axios";
 import API from "../../shared/axios";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
@@ -33,11 +32,11 @@ const Login = () => {
     }
 
     try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-type": "application/json",
+      //   },
+      // };
 
       // const { data } = await axios.post(
       //   "https://mern-chat-app-backend-0oq9.onrender.com/api/user/login",

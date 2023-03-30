@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import axios from "axios";
+import API from "../../shared/axios";
 import { useNavigate } from "react-router";
 
 const SignUp = () => {
@@ -97,11 +97,17 @@ const SignUp = () => {
         },
       };
 
-      const { data } = await axios.post(
-        "https://mern-chat-app-backend-0oq9.onrender.com/api/user",
-        { name, email, password, pic },
-        config
-      );
+      // const { data } = await axios.post(
+      //   "https://mern-chat-app-backend-0oq9.onrender.com/api/user",
+      //   { name, email, password, pic },
+      //   config
+      // );
+      const { data } = await API.post("/api/user", {
+        name,
+        email,
+        password,
+        pic,
+      });
 
       toast({
         title: "Registration Successful",

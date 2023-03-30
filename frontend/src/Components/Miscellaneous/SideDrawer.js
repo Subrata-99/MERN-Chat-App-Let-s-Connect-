@@ -25,6 +25,7 @@ import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./ProfileModal";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import API from "../../shared/axios";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../User/UserListItem";
 import { getSender } from "../../Config/ChatLogics";
@@ -69,13 +70,14 @@ const SideDrawer = () => {
     try {
       setLoading(true);
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     Authorization: `Bearer ${user.token}`,
+      //   },
+      // };
 
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      // const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await API.get(`/api/user?search=${search}`);
 
       setLoading(false);
       setSearchResult(data);
@@ -96,14 +98,15 @@ const SideDrawer = () => {
     try {
       setLoadingChat(true);
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${user.token}`,
+      //   },
+      // };
 
-      const { data } = await axios.post(`/api/chat`, { userId }, config);
+      // const { data } = await axios.post(`/api/chat`, { userId }, config);
+      const { data } = await API.post(`/api/chat`, { userId });
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setLoadingChat(false);

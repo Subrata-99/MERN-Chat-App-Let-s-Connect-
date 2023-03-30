@@ -8,7 +8,8 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
+
+import API from "../shared/axios";
 import React, { useEffect, useState } from "react";
 import { getSender, getSenderDetail } from "../Config/ChatLogics";
 import { ChatState } from "../Context/ChatProvider";
@@ -49,18 +50,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     if (!selectedChat) return;
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     Authorization: `Bearer ${user.token}`,
+      //   },
+      // };
 
       setLoading(true);
 
-      const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
-        config
-      );
+      const { data } = await API.get(`/api/message/${selectedChat._id}`);
 
       // console.log("messages-----------", data);
       setMessages(data);
@@ -82,21 +80,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     if (event.key === "Enter" && newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
+        // const config = {
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     Authorization: `Bearer ${user.token}`,
+        //   },
+        // };
         setNewMessage("");
-        const { data } = await axios.post(
-          "/api/message",
-          {
-            content: newMessage,
-            chatId: selectedChat,
-          },
-          config
-        );
+        // const { data } = await axios.post(
+        //   "/api/message",
+        //   {
+        //     content: newMessage,
+        //     chatId: selectedChat,
+        //   },
+        //   config
+        // );
+        const { data } = await API.post("/api/message", {
+          content: newMessage,
+          chatId: selectedChat,
+        });
         // socket.emit("new message", data);
         socket.emit("new message", data);
         setMessages([...messages, data]);
