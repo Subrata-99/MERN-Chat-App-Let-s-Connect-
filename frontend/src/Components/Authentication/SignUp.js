@@ -98,7 +98,7 @@ const SignUp = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user",
+        "https://mern-chat-app-backend-0oq9.onrender.com/api/user",
         { name, email, password, pic },
         config
       );

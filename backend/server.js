@@ -35,6 +35,10 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
   next();
 });
+
+app.use("/get", () => {
+  console.log("Server running...");
+});
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
