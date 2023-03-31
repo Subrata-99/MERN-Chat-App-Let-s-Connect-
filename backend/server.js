@@ -74,12 +74,12 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: process.env.PROD_URL || "http://localhost:3000",
+    origin: "*",
   },
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected to socket.io at", process.env.PROD_URL);
+  // console.log("Connected to socket.io at");
 
   socket.on("setup", (userData) => {
     socket.join(userData._id);
