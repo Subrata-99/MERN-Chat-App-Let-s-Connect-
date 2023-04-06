@@ -21,7 +21,7 @@ import Lottie from "react-lottie";
 import animationData from "../Animations/typing.json";
 
 import io from "socket.io-client";
-const ENDPOINT = process.env.REACT_APP_API_URL;
+const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:3000/";
 let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -144,7 +144,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           setFetchAgain(!fetchAgain);
         }
       } else {
-        // console.log("newMessageRecieved------", newMessageRecieved);
+        // console.log("newMessageRecieved------", newMessageRecieved, messages);
         setMessages([...messages, newMessageRecieved]);
       }
     });

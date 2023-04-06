@@ -83,13 +83,13 @@ io.on("connection", (socket) => {
 
   socket.on("setup", (userData) => {
     socket.join(userData._id);
-    console.log(userData.name, userData._id);
+    // console.log(userData.name, userData._id);
     socket.emit("connected");
   });
 
   socket.on("join chat", (userData, room) => {
     socket.join(room);
-    console.log(userData.name + " Joined Room: " + room);
+    // console.log(userData.name + " Joined Room: " + room);
   });
 
   socket.on("typing", (room) => socket.in(room).emit("typing"));
@@ -102,7 +102,7 @@ io.on("connection", (socket) => {
 
     chat.users.forEach((user) => {
       if (user._id == newMessageRecieved.sender._id) return;
-      console.log("messeage----", newMessageRecieved.content);
+      // console.log("messeage----", newMessageRecieved.content);
       socket.in(user._id).emit("message recieved", newMessageRecieved);
     });
   });

@@ -55,15 +55,17 @@ const SideDrawer = () => {
     navigate("/");
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (search) => {
+    console.log("searching...", search);
     if (!search) {
-      toast({
-        title: "Please Enter something in search",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "top-left",
-      });
+      // toast({
+      //   title: "Please Enter something in search",
+      //   status: "warning",
+      //   duration: 5000,
+      //   isClosable: true,
+      //   position: "top-left",
+      // });
+      setSearchResult([]);
       return;
     }
 
@@ -198,15 +200,19 @@ const SideDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-          <DrawerBody>
-            <Box display="flex" pb={2}>
+          <DrawerBody display="flex" flexDir="column">
+            <Box pb={2}>
               <Input
                 placeholder="Search by name or email"
                 mr={2}
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                // onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  handleSearch(e.target.value);
+                }}
               />
-              <Button onClick={handleSearch}>Go</Button>
+              {/* <Button onClick={handleSearch}>Go</Button> */}
             </Box>
             {
               loading ? (
@@ -225,7 +231,30 @@ const SideDrawer = () => {
               //   <Text align="center">No Data Found</Text>
               // )
             }
-            {loadingChat && <Spinner ml="auto" display="flex" />}
+            {/* {loadingChat && (
+              <Spinner
+                size="xl"
+                w={20}
+                h={20}
+                alignSelf="center"
+                position="fixed"
+                top="50%"
+                left="40%"
+                transform={"auto"}
+                margin="0 auto"
+              />
+            )} */}
+            {/* <Spinner
+              // size="xl"
+              // w={20}
+              // h={20}
+              alignSelf="center"
+              position="fixed"
+              top="50%"
+              left="50%"
+              transform={"auto"}
+              // margin="auto"
+            /> */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
