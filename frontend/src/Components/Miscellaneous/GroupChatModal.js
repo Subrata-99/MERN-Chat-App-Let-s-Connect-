@@ -28,7 +28,7 @@ const GroupChatModal = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const { user, chats, setChats } = ChatState();
+  const { user, chats, setChats, theme } = ChatState();
 
   const handleSearch = async (query) => {
     setSearch(query);
@@ -124,7 +124,12 @@ const GroupChatModal = ({ children }) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          borderColor={theme === "DARK" && "#2E4F4F"}
+          background={theme === "DARK" ? "#2C3333" : "white"}
+          color={theme === "DARK" && "#0E8388"}
+          // background={theme === "DARK" ? "#2E4F4F" : "#F8F8F8"}
+        >
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"

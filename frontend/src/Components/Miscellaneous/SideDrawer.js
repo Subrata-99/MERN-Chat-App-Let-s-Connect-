@@ -18,7 +18,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { BellIcon, ChevronDownIcon, SunIcon, MoonIcon } from "@chakra-ui/icons";
 import { Spinner } from "@chakra-ui/spinner";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
@@ -42,6 +42,8 @@ const SideDrawer = () => {
     setChats,
     notification,
     setNotification,
+    theme,
+    setTheme,
   } = ChatState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -137,9 +139,16 @@ const SideDrawer = () => {
         w="100%"
         p="5px 10px 5px 10px"
         borderWidth="5px"
+        borderColor={theme === "DARK" && "#2E4F4F"}
+        color={theme === "DARK" && "#0E8388"}
+        background={theme === "DARK" ? "#2C3333" : "white"}
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-          <Button variant="ghost" onClick={onOpen}>
+          <Button
+            variant="ghost"
+            onClick={onOpen}
+            _hover={{ background: theme === "DARK" ? "#2E4F4F" : "#EDF2F7" }}
+          >
             <i class="fas fa-search"></i>
             <Text display={{ base: "none", md: "flex" }} px="4">
               Search User
@@ -151,6 +160,19 @@ const SideDrawer = () => {
           Lets-Connect
         </Text>
         <div>
+          <Tooltip label="Change the" hasArrow placement="bottom-end">
+            <Button
+              variant="ghost"
+              onClick={() => setTheme(theme === "LIGHT" ? "DARK" : "LIGHT")}
+              _hover={{ background: theme === "DARK" ? "#4F4557" : "#EDF2F7" }}
+            >
+              {theme === "LIGHT" ? (
+                <MoonIcon fontSize="xl" m={1} />
+              ) : (
+                <SunIcon fontSize="2xl" m={1} color="yellow.500" />
+              )}
+            </Button>
+          </Tooltip>
           <Menu>
             <MenuButton p={1}>
               <NotificationBadge
@@ -159,7 +181,11 @@ const SideDrawer = () => {
               />
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
-            <MenuList pl={2}>
+            <MenuList
+              pl={2}
+              background={theme === "DARK" ? "#2C3333" : "white"}
+              borderColor={theme === "DARK" && "#0E8388"}
+            >
               {!notification.length && "No new Messages"}
               {notification.map((notif) => (
                 <MenuItem
@@ -177,7 +203,15 @@ const SideDrawer = () => {
             </MenuList>
           </Menu>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              background={theme === "DARK" ? "#2E4F4F" : "#EDF2F7"}
+              _hover={{ background: theme === "DARK" ? "#0c6e72" : "#E2E8F0" }}
+              // background={theme === "DARK" ? "#2C3333" : "#EDF2F7"}
+              // // colorTheme="red"
+              // _hover={{ background: theme === "DARK" ? "#0E8388" : "#E2E8F0" }}
+            >
               <Avatar
                 size="sm"
                 cursor="pointer"
@@ -185,12 +219,22 @@ const SideDrawer = () => {
                 src={user.pic}
               />
             </MenuButton>
-            <MenuList>
+            <MenuList
+              background={theme === "DARK" ? "#2C3333" : "white"}
+              borderColor={theme === "DARK" && "#0E8388"}
+            >
               <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>
+                <MenuItem background={theme === "DARK" ? "#2C3333" : "white"}>
+                  My Profile
+                </MenuItem>
               </ProfileModal>
               <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <MenuItem
+                background={theme === "DARK" ? "#2C3333" : "white"}
+                onClick={logoutHandler}
+              >
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </div>
@@ -199,10 +243,22 @@ const SideDrawer = () => {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-          <DrawerBody display="flex" flexDir="column">
+          <DrawerHeader
+            background={theme === "DARK" ? "#2C3333" : "white"}
+            borderColor={theme === "DARK" && "#2E4F4F"}
+            color={theme === "DARK" && "#0E8388"}
+            borderBottomWidth="1px"
+          >
+            Search Users
+          </DrawerHeader>
+          <DrawerBody
+            background={theme === "DARK" ? "#2E4F4F" : "white"}
+            display="flex"
+            flexDir="column"
+          >
             <Box pb={2}>
               <Input
+                color={theme === "DARK" && "#0E8388"}
                 placeholder="Search by name or email"
                 mr={2}
                 value={search}

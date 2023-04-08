@@ -14,8 +14,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import { ChatState } from "../../Context/ChatProvider";
 
 const ProfileModal = ({ user, children }) => {
+  const { theme } = ChatState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -26,11 +28,18 @@ const ProfileModal = ({ user, children }) => {
           display={{ base: "flex" }}
           icon={<ViewIcon />}
           onClick={onOpen}
+          background={theme === "DARK" ? "#2E4F4F" : "#EDF2F7"}
+          _hover={{ background: theme === "DARK" ? "#0c6e72" : "#E2E8F0" }}
         />
       )}
       <Modal size="lg" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent h="410px">
+        <ModalContent
+          h="410px"
+          borderColor={theme === "DARK" && "#2E4F4F"}
+          background={theme === "DARK" ? "#2C3333" : "white"}
+          color={theme === "DARK" && "#0E8388"}
+        >
           <ModalHeader
             fontSize="40px"
             fontFamily="Work sans"

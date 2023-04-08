@@ -99,7 +99,7 @@ const Login = () => {
       </FormControl>
       <Button
         colorScheme="primary"
-        _hover={{ background: "#97e8e0" }}
+        _hover={{ background: "#62B6B7" }}
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
@@ -115,7 +115,7 @@ const Login = () => {
           setEmail("guest@example.com");
           setPassword("123456");
         }}
-        isLoading={loading}
+        // isLoading={loading}
       >
         Get Guest User Credentials
       </Button>

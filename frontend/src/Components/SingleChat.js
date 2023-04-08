@@ -25,8 +25,14 @@ const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:3000/";
 let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, selectedChat, setSelectedChat, notification, setNotification } =
-    ChatState();
+  const {
+    user,
+    selectedChat,
+    setSelectedChat,
+    notification,
+    setNotification,
+    theme,
+  } = ChatState();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -144,7 +150,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           setFetchAgain(!fetchAgain);
         }
       } else {
-        // console.log("newMessageRecieved------", newMessageRecieved, messages);
+        console.log("newMessageRecieved------", newMessageRecieved, messages);
         setMessages([...messages, newMessageRecieved]);
       }
     });
@@ -193,6 +199,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               display={{ base: "flex", md: "none" }}
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
+              background={theme === "DARK" ? "#2E4F4F" : "#EDF2F7"}
+              _hover={{ background: theme === "DARK" ? "#0c6e72" : "#E2E8F0" }}
             />
             {!selectedChat?.isGroupChat ? (
               <>
@@ -222,6 +230,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             h="100%"
             borderRadius="lg"
             overflowY="hidden"
+            background={theme === "DARK" ? "#2E4F4F" : "#E8E8E8"}
           >
             {/* Messages Here */}
             {loading ? (
@@ -256,6 +265,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 placeholder="Enter a message.."
                 onChange={typingHandler}
                 value={newMessage}
+                background={theme === "DARK" ? "#CBE4DE" : "#EDF2F7"}
+                _hover={{
+                  background: theme === "DARK" ? "#b3d8ce" : "#E2E8F0",
+                }}
               />
             </FormControl>
           </Box>
@@ -266,8 +279,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           alignItems="center"
           justifyContent="center"
           h="100%"
+          // background={theme === "DARK" ? "#2E4F4F" : "white"}
         >
-          <Text fontSize="3xl" pb={3} fontFamily="Work sans">
+          <Text
+            color={theme === "DARK" && "#0E8388"}
+            fontSize="3xl"
+            pb={3}
+            fontFamily="Work sans"
+          >
             Click on a user to start chatting
           </Text>
         </Box>

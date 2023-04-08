@@ -199,7 +199,7 @@ const SignUp = () => {
       </FormControl>
       <Button
         colorScheme="primary"
-        _hover={{ background: "#97e8e0" }}
+        _hover={{ background: "#62B6B7" }}
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}

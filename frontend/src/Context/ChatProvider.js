@@ -5,6 +5,7 @@ const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
   const navigate = useNavigate();
+  const [theme, setTheme] = useState("LIGHT");
   const [user, setUser] = useState();
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState();
@@ -24,6 +25,8 @@ const ChatProvider = ({ children }) => {
   return (
     <ChatContext.Provider
       value={{
+        theme,
+        setTheme,
         user,
         setUser,
         selectedChat,

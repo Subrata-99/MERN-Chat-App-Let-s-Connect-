@@ -22,7 +22,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Container maxWidth="xl" marginInlineStart={0} marginLeft={20}>
+    <Container maxWidth="xl">
       <Box
         display={"flex"}
         justifyContent={"center"}
@@ -33,14 +33,14 @@ const HomePage = () => {
         m="40px 0 15px 0"
         borderRadius="lg"
         borderWidth="1px"
-        backgroundColor={"#6aded5"}
-        borderColor={"#6aded5"}
+        backgroundColor={"#0E8388"}
+        borderColor={"#0E8388"}
       >
         <Text
           alignSelf={"center"}
           fontSize="4xl"
           fontFamily="Work sans"
-          color="black"
+          color="white"
         >
           Lets-Connect
         </Text>

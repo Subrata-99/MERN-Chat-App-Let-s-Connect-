@@ -23,7 +23,7 @@ import UserBadgeItem from "../User/UserBadgeItem";
 import UserListItem from "../User/UserListItem";
 
 const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
-  const { user, selectedChat, setSelectedChat } = ChatState();
+  const { user, selectedChat, setSelectedChat, theme } = ChatState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
@@ -224,10 +224,16 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         display={{ base: "flex" }}
         onClick={onOpen}
         icon={<ViewIcon />}
+        background={theme === "DARK" ? "#2E4F4F" : "#EDF2F7"}
+        _hover={{ background: theme === "DARK" ? "#0c6e72" : "#E2E8F0" }}
       />
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          borderColor={theme === "DARK" && "#2E4F4F"}
+          background={theme === "DARK" ? "#2C3333" : "white"}
+          color={theme === "DARK" && "#0E8388"}
+        >
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"

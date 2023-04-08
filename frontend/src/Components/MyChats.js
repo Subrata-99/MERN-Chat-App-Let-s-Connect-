@@ -10,6 +10,7 @@ import { getSender } from "../Config/ChatLogics";
 import GroupChatModal from "./Miscellaneous/GroupChatModal";
 
 const MyChats = ({ fetchAgain }) => {
+  const { theme } = ChatState();
   const [loggedUser, setLoggedUser] = useState();
   const [loading, setLoading] = useState(false);
   const { selectedChat, setSelectedChat, chats, setChats, user } = ChatState();
@@ -57,6 +58,9 @@ const MyChats = ({ fetchAgain }) => {
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderWidth="1px"
+      background={theme === "DARK" ? "#2C3333" : "white"}
+      borderColor={theme === "DARK" && "#2E4F4F"}
+      color={theme === "DARK" && "#0E8388"}
     >
       <Box
         pb={3}
@@ -74,6 +78,8 @@ const MyChats = ({ fetchAgain }) => {
             display="flex"
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
+            background={theme === "DARK" ? "#2E4F4F" : "#EDF2F7"}
+            _hover={{ background: theme === "DARK" ? "#0c6e72" : "#E2E8F0" }}
           >
             New Group Chat
           </Button>
@@ -89,6 +95,7 @@ const MyChats = ({ fetchAgain }) => {
         h="100%"
         borderRadius="lg"
         overflowY="hidden"
+        background={theme === "DARK" ? "#2E4F4F" : "#F8F8F8"}
       >
         {loading ? (
           <ChatLoading />
@@ -98,8 +105,16 @@ const MyChats = ({ fetchAgain }) => {
               <Box
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
+                bg={
+                  selectedChat === chat
+                    ? "#38B2AC"
+                    : theme === "DARK"
+                    ? "#146353"
+                    : "#E8E8E8"
+                }
+                color={
+                  selectedChat === chat || theme === "DARK" ? "white" : "black"
+                }
                 px={3}
                 py={2}
                 borderRadius="lg"
